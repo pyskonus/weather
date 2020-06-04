@@ -1,37 +1,24 @@
 import React, {useState} from 'react';
-const api = {
-  key: "33d664b74b39068471ee0a7ff58ab004",
-  url: "https://api.openweathermap.org/data/2.5/"
+import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
+import Today from './components/Today';
+import InOneDay from './components/InOneDay';
+import InTwoDays from './components/InTwoDays';
+import InThreeDays from './components/InThreeDays';
+import InFourDays from './components/InFourDays';
+
+const dayShift = (shift) => {
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  
+  let d = new Date();
+  let day = days[(d.getDay() + shift)%7];
+
+  return `${day}`
 }
 
+let dt = new Date();
+let month = dt.getMonth();
+
 function App() {
-  const [query, setQuery] = useState('');
-  const [weather, setWeather] = useState({});
-
-  const search = evt => {
-    if (evt.key === "Enter") {
-      fetch(`${api.url}weather?q=${query}&units=metric&APPID=${api.key}`)
-      .then(res => res.json())
-      .then(result => {setWeather(result); setQuery('');});
-    }
-  }
-
-
-  const obtainDate = (d) => {
-    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-    let day = days[d.getDay()];
-    let date = d.getDate();
-    let month = months[d.getMonth()];
-    let year = d.getFullYear();
-
-    return `${day} ${date} ${month} ${year}`
-  }
-
-  let dt = new Date();
-  let month = dt.getMonth();
-
   return (
     <div className = {
       ([0,1,2].includes(month)) ?
@@ -40,31 +27,25 @@ function App() {
       'App summer' : 'App autumn'
     }>
       <main>
-        <div className="search-box">
-          <input type="text"
-          className="search-bar"
-          placeholder="Search..."
-          onChange={e => setQuery(e.target.value)}
-          value={query}
-          onKeyPress={search}
-          />
-        </div>
-        {(typeof weather.main != "undefined") ? (
-        <div>
-          <div className="location-box">
-            <div className="location">{weather.name}, {weather.sys.country}</div>
-            <div className="date">{obtainDate(new Date())}</div>
-          </div>
-          <div className="weather-box">
-            <div className="temp">
-              {Math.round(weather.main.temp)} &deg;C
-            </div>
-            <div className="weather">
-              {weather.weather[0].main}
-            </div>
-          </div>
-        </div>
-        ) : ('')}
+      <BrowserRouter>
+      <Switch>
+      <Route path="/" exact component={Today} />
+      <Route path="/components/InOneDay" component={InOneDay} />
+      <Route path="/components/InTwoDays" component={InTwoDays} />
+      <Route path="/components/InThreeDays" component={InThreeDays} />
+      <Route path="/components/InFourDays" component={InFourDays} />
+      </Switch>
+      
+      <ul>
+        <Link to="/components/InOneDay"><li>{dayShift(1)}</li></Link>
+        <Link to="/components/InTwoDays"><li>{dayShift(2)}</li></Link>
+      </ul>
+      <ul>
+        <Link to="/components/InThreeDays"><li>{dayShift(3)}</li></Link>
+        <Link to="/components/InFourDays"><li>{dayShift(4)}</li></Link>
+      </ul>
+      <Link to="/"><p>Today</p></Link>
+      </BrowserRouter>
       </main>
     </div>
   );

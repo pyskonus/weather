@@ -54,7 +54,6 @@ main {
   padding: 15px;
   color: white;
 
-  appearance: none;
   background: none;
   border: none;
   outline: none;
@@ -112,4 +111,64 @@ main {
   font-size: 6.5vh;
   font-weight: 700;
   text-shadow: 4px 7px rgba(50, 50, 50, 0.5);
+}
+
+ul {
+  width: 36vw;
+  text-align: center;
+  display: inline-block;
+  margin: 2vh 2vw;
+
+  color: #505050;
+  
+  list-style-type: none;
+}
+
+li {
+  padding: 12px;
+  margin: 5vh 2vw;
+
+  background: none;
+  border: none;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  box-shadow: 4px 7px rgba(0,0,0, 0.2);
+  font-size: 25px;
+
+  transition: 0.4s ease;
+}
+
+li:hover {
+  background-color: rgba(0,0,0, 0.5);
+  color: white;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: #505050;
+}
+
+p {
+  padding: 12px;
+  margin: -2vh 4vw;
+  width: 72vw;
+  text-align: center;
+
+  background: none;
+  border: none;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  box-shadow: 4px 7px rgba(0,0,0, 0.2);
+  font-size: 25px;
+
+  transition: 0.4s ease;
+}
+
+p:hover {
+  background-color: rgba(0,0,0, 0.5);
+  color: white;
+  cursor: pointer;
 }
